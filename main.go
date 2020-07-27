@@ -29,7 +29,7 @@ LOOP: // 以下のループにラベル「LOOP」をつける
 
 		// モードを選択して実行する
 		var mode int
-		fmt.Println("[1]入力 [2]最新10件 [3]終了")
+		fmt.Println("[1]入力 [2]最新10件 [3]集計 [4]終了")
 		fmt.Printf(">")
 		fmt.Scan(&mode)
 
@@ -53,7 +53,13 @@ LOOP: // 以下のループにラベル「LOOP」をつける
 				break LOOP
 			}
 			showItems(items)
-		case 3: // 終了
+		case 3:
+			summaries, err := ab.GetSummaries()
+			if err != nil {
+				fmt.Fprintln(os.Stderr, "エラー:", err)
+				break LOOP
+			}
+		case 4: // 終了
 			fmt.Println("終了します")
 			return
 		}
